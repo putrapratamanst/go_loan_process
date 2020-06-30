@@ -77,8 +77,8 @@ func runCommand(cmdStr string) error {
 func createDayMax(numbers int) string {
 
 	tempSave["create_day_max"] = numbers
-	fmt.Println(tempSave)
-
-	callback := "Created max request with requests" 
+	num := strconv.Itoa(numbers)
+	callback := "Created max request with " +num+ " requests" 
+	
 	return callback
 }
