@@ -11,6 +11,10 @@ import(
 	"os/exec"
 )
 
+var tempSave = make(map[string]int)
+
+const MAX_REQUEST_PER_DATE = 50
+
 func main(){
 	reader := bufio.NewReader(os.Stdin)
 	for {
@@ -68,4 +72,13 @@ func runCommand(cmdStr string) error {
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
 	return cmd.Run()
+}
+
+func createDayMax(numbers int) string {
+
+	tempSave["create_day_max"] = numbers
+	fmt.Println(tempSave)
+
+	callback := "Created max request with requests" 
+	return callback
 }
