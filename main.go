@@ -9,6 +9,8 @@ import(
 	"errors"
 	"strconv"
 	"os/exec"
+	"./controllers"
+
 )
 
 var tempSave = make(map[string]int)
@@ -61,9 +63,28 @@ func runCommand(cmdStr string) error {
 			return errors.New("Argument Value Must Be 50")
 		} 
 
-		fmt.Fprintln(os.Stdout, createDayMax(num))
+		fmt.Fprintln(os.Stdout, controllers.CreateDayMax(tempSave, num))
 		return nil
 	
+	case "add":
+
+		if len(arrCmdStr) != 4 {
+			return errors.New("Required for 3 arguments")
+		} 
+		
+		var arrNum []string
+		for i, arg := range arrCmdStr {
+				if i == 0 {
+				continue
+			}
+			arrNum = append(arrNum, arg)
+		}
+
+
+		fmt.Println(arrNum);
+		fmt.Fprintln(os.Stdout, controllers.AddDataBorrower(tempSave, "sdf"))
+		return nil
+
 	default:
 		return errors.New("Command Not Found")
 	}
@@ -72,13 +93,4 @@ func runCommand(cmdStr string) error {
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
 	return cmd.Run()
-}
-
-func createDayMax(numbers int) string {
-
-	tempSave["create_day_max"] = numbers
-	num := strconv.Itoa(numbers)
-	callback := "Created max request with " +num+ " requests" 
-	
-	return callback
 }
